@@ -274,7 +274,7 @@
     					<?php
 							try
 							{
-								$sql = $connection->prepare("SELECT * FROM Voitures WHERE PlaqueVehicule NOT IN (SELECT PlaqueVehicule FROM Locations)");
+								$sql = $connection->prepare("SELECT * FROM Voitures WHERE PlaqueVehicule");
 								$sql->execute();
 								$vehicles = $sql->fetchAll(PDO::FETCH_ASSOC);
 								foreach($vehicles as $row)
@@ -293,7 +293,7 @@
 			    								<span class="cat"><?php echo $row['Constructeur']; ?></span>
 			    								<p class="price ml-auto"><?php echo $row['LoyerVehicule']; ?> <span>€/mois</span></p>
 		    								</div>
-		    								<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="vehicle.php?plate=<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    								<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Location</a> <a href="vehicle.php?plate=<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
 		    							</div>
 		    						</div>	
 		    					</div>
@@ -312,12 +312,12 @@
     </section>
 
     <section class="ftco-section ftco-about">
-			<div class="container">
-				<div class="row no-gutters">
-					<div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
-					</div>
-					<div class="col-md-6 wrap-about ftco-animate">
-	          <div class="heading-section heading-section-white pl-md-5">
+	<div class="container">
+		<div class="row no-gutters">
+			<div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
+			</div>
+			<div class="col-md-6 wrap-about ftco-animate">
+	     		<div class="heading-section heading-section-white pl-md-5">
 	          	<span class="subheading">À propos de nous</span>
 	            <h2 class="mb-4">Ici le client est roi</h2>
 

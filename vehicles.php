@@ -34,6 +34,41 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="moment.js"></script>
+    <script>
+     	 // set an element
+
+     	let startDate = moment().format('YYYY-MM-DD');
+     	moment().add(10, 'days').calendar();
+    	let endDate = moment().format('YYYY-MM-DD');
+    	console.log(startDate, endDate);
+    	
+    	$(function() {$('input[name="daterange"]').daterangepicker({opens: 'left'}, function(start, end, label)
+    	{
+    			startDate = start.format('YYYY-MM-DD') ;
+    			endDate = end.format('YYYY-MM-DD') ;
+				console.log("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate);
+    			let result = $.get("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate, function(data, status)
+				{
+					$("#carlist").html("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate+data);				
+				});
+  		});
+		});
+    
+    	$(document).ready(function()
+    	{
+			$("#vehiclesSearchBar").keyup(function(){
+				let result = $.get("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate, function(data, status)
+				{
+					$("#carlist").html("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate+data);
+				}
+				);
+  			});
+		}); 
+    
+    </script>
   </head>
   <body>
     
@@ -70,62 +105,29 @@
           <div class="col-md-9 ftco-animate pb-5">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Accueil <i class="ion-ios-arrow-forward"></i></a></span> <span>Tarifs <i class="ion-ios-arrow-forward"></i></span><p>
             <h1 class="mb-3 bread">Tarifs</h1>
+            <form>
+		  	<div class="input-group rounded">
+			  <input id="vehiclesSearchBar" type="search" class="form-control rounded" placeholder="Rechercher un véhicule par modèle ou par marque" aria-label="Search" aria-describedby="search-addon"/>
+			  <input type="text" name="daterange" value="01/01/2022 - 01/15/2023" />
+			  <i class="fas fa-search"></i>
+			  </span>
+			</div>
+          	</form>
           </div>
-        </div>
+        </div>     
       </div>
+      
     </section>
+    
     <section class="ftco-section ftco-cart">
 	<div class="container">
 		<div class="row">
     			<div class="col-md-12 ftco-animate">
     				<div class="car-list">
-	    				<table class="table">
-					    <thead class="thead-primary">
-					    <tr class="text-center">
-					       	<th>&nbsp;</th>
-						<th>&nbsp;</th>
-						<th class="bg-primary heading">Loyer hebdomadaire</th>
-					    </tr>
-					</thead>
-						    <tbody>
-						      
-							<?php
-								$sql = $connection->prepare('SELECT * FROM Voitures WHERE PlaqueVehicule NOT IN (SELECT PlaqueVehicule FROM Locations)'); 
-								$sql->execute();
-							  	$vehicles = $sql->fetchAll();
-							  	foreach($vehicles as $row)
-							  	{  
-                     				$plate = $row["PlaqueVehicule"];
-							    	$imagePath = $row["CheminImage"];
-                      				$rent = $row["LoyerVehicule"];
-									$carName = $row["ModeleVehicule"];
-    								?><tr class="">
-    								<td class="car-image">
-									<div class="img" style="background-image:url('<?php echo $imagePath; ?>')";
-    								</div>
-    								</td>
-    								<td class="product-name">
-									<h3><?php echo $carName; ?> 								 
-    								</td>
-    								<td class="price">
-    								
-    								<?php if($isUserApproved){ ?>
-    								<p class="btn-custom"><a href="vehicle.php?plate=<?php echo $plate; ?>">Elle est pour moi !</a></p>
-    								<?php } else{ ?>
-    								<button type="button" class="btn btn-lg btn-primary" disabled>Primary button</button>
-    								<?php } ?>
-						        	<div class="price-rate">
-						        	
-						        	
-						        	<h3><?php echo $rent ?>€</span>
-							        <span class="per">/par mois</span>
-							        </h3>
-							        </div>
-							        </td>
-								 <?php } ?>
-						   		     
-						    </tbody>
-						  </table>
+	    				<table class="table" id="carlist">
+	    				
+	    				
+	    				</table>
 					  </div>
     			</div>
     		</div>
@@ -197,27 +199,31 @@
     
   
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+	  <!-- loader -->
+	  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+	  <script src="js/jquery.min.js"></script>
+	  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+	  <script src="js/popper.min.js"></script>
+	  <script src="js/bootstrap.min.js"></script>
+	  <script src="js/jquery.easing.1.3.js"></script>
+	  <script src="js/jquery.waypoints.min.js"></script>
+	  <script src="js/jquery.stellar.min.js"></script>
+	  <script src="js/owl.carousel.min.js"></script>
+	  <script src="js/jquery.magnific-popup.min.js"></script>
+	  <script src="js/aos.js"></script>
+	  <script src="js/jquery.animateNumber.min.js"></script>
+	  <script src="js/bootstrap-datepicker.js"></script>
+	  <script src="js/jquery.timepicker.min.js"></script>
+	  <script src="js/scrollax.min.js"></script>
+	  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	  <script src="js/google-map.js"></script>
+	  <script src="js/main.js"></script>
+	  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     
   </body>
 </html>

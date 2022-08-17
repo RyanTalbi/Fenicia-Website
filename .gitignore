@@ -1,0 +1,4 @@
+# Ignoring composer installation files
+composer-setup.php
+composer.phar
+/vendor

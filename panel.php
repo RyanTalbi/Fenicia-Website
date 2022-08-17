@@ -1,6 +1,6 @@
 <?php
 	session_start();
-      	require('connectToDatabase.php');
+      	require 'connectToDatabase.php';
       	if(isset($_POST["constructor"]) && isset($_POST["model"]) && isset($_POST["plate"]) && isset($_POST["year"]) && isset($_POST["graycardnumber"]) && isset($_POST["color"]) && isset($_POST["rent"]) && isset($_POST["gearbox"]) && isset($_POST["distance"]) && isset($_POST["placesnumber"]) && isset($_POST["doorsnumber"]) && isset($_POST["fuel"]) && $_SESSION["isAdmin"] == 1)
       {
         $targetFolder = "images/cars/";
@@ -44,7 +44,7 @@
         $description = $_POST["description"];
         $distance = $_POST["distance"];
           
-       $sql = connection->prepare("INSERT INTO Voitures VALUES(:plate,:model,:graycardnumber,:constructor,:year,:color,:rent,:imageName,:gearbox,:placesnumber,:doorsnumber,:fuel,:description,:constructor,:distance,:gps,:airConditioning");   
+       $sql = $connection->prepare("INSERT INTO Voitures  VALUES(:plate,:model,:graycardnumber,:constructor,:year,:color,:rent,:imageName,:gearbox,:placesnumber,:doorsnumber,:fuel,:description,:constructor,:distance,:gps,:airConditioning,:onboardAudio)");   
        $sql->bindParam(":plate",$plate);
        $sql->bindParam(":model",$model);
        $sql->bindParam(":graycardnumber",$graycardnumber);
@@ -61,7 +61,8 @@
        $sql->bindParam(":constructor",$constructor);
        $sql->bindParam(":distance",$distance);
        $sql->bindParam(":gps",$gps);
-       $sql->bindParam(":airConditioning",$airConditioning);   
+       $sql->bindParam(":airConditioning",$airConditioning); 
+       $sql->bindParam(":onboardAudio",$onboardAudio);
        $sql->execute();  
       }
     ?>  
@@ -133,7 +134,7 @@
     </section>
 		
 
-	<section class="ftco-section ftco-no-pt bg-light">
+      <section class="ftco-section ftco-no-pt bg-light">
       <div class="container">
         <?php 
         if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1)
@@ -155,7 +156,7 @@
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Année</label>
-                  <input type="number" class="form-control" name="year" placeholder="Année" required />
+                  <input type="number" class="form-control" name="year" placeholder="Année"  min="1900" max="9999" step="1" value="2022" required />
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Numéro de carte grise</label>
@@ -190,7 +191,7 @@
                   <input type="text" class="form-control" name="description" placeholder="Description">
                 </div>
                 <div class="form-group">
-                  <label for="" class="label">Image d\'illustration</label>
+                  <label for="" class="label">Image d'illustration</label>
                   <input type="file" name="image">
                 </div>
                 <div class="form-group">
@@ -198,16 +199,13 @@
                   <input type="number" class="form-control" name="distance" placeholder="Kilométrage">
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" id="vehicle1" name="gps" value="1">
-                  <label for="gps">GPS</label><br>
+                  <label for="gps">GPS<input type="checkbox" id="vehicle1" name="gps" value="1"></label><br>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" id="vehicle1" name="airConditioning" value="1">
-                  <label for="gps">Air conditionné</label><br>
+                  <label for="gps">Air conditionné><input type="checkbox" id="vehicle1" name="airConditioning" value="1"></label><br>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" id="vehicle1" name="onboardAudio" value="1">
-                  <label for="gps">Audio intégré</label><br>
+                  <label>Audio intégré<input type="checkbox" id="vehicle1" name="onboardAudio" value="1"></label><br>
                 </div>
                 <div class="form-group">
                   <input type="submit" name="submit" value="Ajouter" class="btn btn-secondary py-3 px-4">

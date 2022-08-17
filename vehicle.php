@@ -47,14 +47,18 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="index.php" class="nav-link">Accueil</a></li>
 	          <li class="nav-item"><a href="vehicles.php" class="nav-link">Véhicules</a></li>
+	          <?php if(isset($_SESSION["isAdmin"]) and $_SESSION["isAdmin"] == 1){ ?>
+	          <li class="nav-item"><a href="panel.php" class="nav-link">Panel d'administration des véhicules</a></li>
+	          <li class="nav-item"><a href="applications.php" class="nav-link">Membres en attente</a></li>
+	          <?php } ?>
 	          <?php if(!isset($_SESSION['email'])){  ?> <li class="nav-item"><a href="login.php" class="nav-link">Se connecter</a></li> <?php }
 	          else { ?>
 	          	<li class="nav-item"><a href="profile.php" class="nav-link">Mon profil</a></li>
 	          	<li class="nav-item"><a href="logout.php" class="nav-link">Se déconnecter</a></li>
-	          	<?php } ?>
+	          <?php } ?>
 	        </ul>
 	      </div>
-	    </div>
+		</div>
       </nav>
     <!-- END nav -->
     
@@ -327,7 +331,7 @@
               </div>
          </div>
       </div>
-      <?php if(!isset($_SESSION["email"]) || !$_SESSION["isAdmin"] == 1){?><a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Elle est pour moi !</a><?php } else { ?><a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Supprimer ce véhicule.</a>
+      <a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Elle est pour moi !</a><?php if(isset($_SESSION["email"]) && $_SESSION["isAdmin"] == 1){ ?><a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Supprimer ce véhicule.</a> <?php } ?>
 
     </section>
 
