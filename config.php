@@ -23,7 +23,6 @@
 		$connection->exec($sql);
 		$connection->commit();	
 		echo "La base de données a été crée avec succès";
-	
 	}
 	catch(PDOException $exception)
 	{

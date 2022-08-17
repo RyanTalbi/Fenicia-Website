@@ -85,7 +85,7 @@
 	          <li class="nav-item"><a href="vehicles.php" class="nav-link">Véhicules</a></li>
 	          <?php if(isset($_SESSION["isAdmin"]) and $_SESSION["isAdmin"] == 1){ ?>
 	          <li class="nav-item"><a href="panel.php" class="nav-link">Panel d'administration des véhicules</a></li>
-	          <li class="nav-item"><a href="applications.php" class="nav-link">Membres en attente</a></li>
+	          <li class="nav-item"><a href="applications.php" class="nav-link">Dossiers en attente</a></li>
 	          <?php } ?>
 	          <?php if(!isset($_SESSION['email'])){  ?> <li class="nav-item"><a href="login.php" class="nav-link">Se connecter</a></li> <?php }
 	          else { ?>
@@ -108,7 +108,7 @@
             <form>
 		  	<div class="input-group rounded">
 			  <input id="vehiclesSearchBar" type="search" class="form-control rounded" placeholder="Rechercher un véhicule par modèle ou par marque" aria-label="Search" aria-describedby="search-addon"/>
-			  <input type="text" name="daterange" value="01/01/2022 - 01/15/2023" />
+			  <input type="text" name="daterange" value="01/01/2022 - 01/15/2050" />
 			  <i class="fas fa-search"></i>
 			  </span>
 			</div>

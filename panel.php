@@ -43,29 +43,36 @@
         $fuel = $_POST["fuel"];
         $description = $_POST["description"];
         $distance = $_POST["distance"];
-          
-       $sql = $connection->prepare("INSERT INTO Voitures  VALUES(:plate,:model,:graycardnumber,:constructor,:year,:color,:rent,:imageName,:gearbox,:placesnumber,:doorsnumber,:fuel,:description,:constructor,:distance,:gps,:airConditioning,:onboardAudio)");   
-       $sql->bindParam(":plate",$plate);
-       $sql->bindParam(":model",$model);
-       $sql->bindParam(":graycardnumber",$graycardnumber);
-       $sql->bindParam(":constructor",$constructor);
-       $sql->bindParam(":year",$year);
-       $sql->bindParam(":color",$color);
-       $sql->bindParam(":rent",$rent);
-       $sql->bindParam(":imageName",$filesystemfilename);
-       $sql->bindParam(":gearbox",$gearbox);
-       $sql->bindParam(":placesnumber",$placesnumber);
-       $sql->bindParam(":doorsnumber",$doorsnumber);
-       $sql->bindParam(":fuel",$fuel);
-       $sql->bindParam(":description",$description);
-       $sql->bindParam(":constructor",$constructor);
-       $sql->bindParam(":distance",$distance);
-       $sql->bindParam(":gps",$gps);
-       $sql->bindParam(":airConditioning",$airConditioning); 
-       $sql->bindParam(":onboardAudio",$onboardAudio);
-       $sql->execute();  
-      }
-    ?>  
+        
+        try
+        {
+		   $sql = $connection->prepare("INSERT INTO Voitures  VALUES(:plate,:model,:graycardnumber,:constructor,:year,:color,:rent,:imageName,:gearbox,:placesnumber,:doorsnumber,:fuel,:description,:constructor,:distance,:gps,:airConditioning,:onboardAudio)");   
+		   $sql->bindParam(":plate",$plate);
+		   $sql->bindParam(":model",$model);
+		   $sql->bindParam(":graycardnumber",$graycardnumber);
+		   $sql->bindParam(":constructor",$constructor);
+		   $sql->bindParam(":year",$year);
+		   $sql->bindParam(":color",$color);
+		   $sql->bindParam(":rent",$rent);
+		   $sql->bindParam(":imageName",$filesystemfilename);
+		   $sql->bindParam(":gearbox",$gearbox);
+		   $sql->bindParam(":placesnumber",$placesnumber);
+		   $sql->bindParam(":doorsnumber",$doorsnumber);
+		   $sql->bindParam(":fuel",$fuel);
+		   $sql->bindParam(":description",$description);
+		   $sql->bindParam(":constructor",$constructor);
+		   $sql->bindParam(":distance",$distance);
+		   $sql->bindParam(":gps",$gps);
+		   $sql->bindParam(":airConditioning",$airConditioning); 
+		   $sql->bindParam(":onboardAudio",$onboardAudio);
+		   $sql->execute();  
+       }
+       catch(PDOException $exception)
+       {
+       	   echo "Erreur lors de l'insertion des données dans la base de données : " . $exception->getMessage();
+       }
+    }
+?>  
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -93,6 +100,10 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>    
+    	$(document).ready(function(){ }})
+    </script>
   </head>
   <body>
  
@@ -109,7 +120,7 @@
 	          <li class="nav-item"><a href="vehicles.php" class="nav-link">Véhicules</a></li>
 	          <?php if(isset($_SESSION["isAdmin"]) and $_SESSION["isAdmin"] == 1){ ?>
 	          <li class="nav-item"><a href="panel.php" class="nav-link">Panel d'administration des véhicules</a></li>
-	          <li class="nav-item"><a href="applications.php" class="nav-link">Membres en attente</a></li>
+	          <li class="nav-item"><a href="applications.php" class="nav-link">Dossiers en attente</a></li>
 	          <?php } ?>
 	          <?php if(!isset($_SESSION['email'])){  ?> <li class="nav-item"><a href="login.php" class="nav-link">Se connecter</a></li> <?php }
 	          else { ?>
@@ -144,7 +155,23 @@
                 <h2>Ajouter un véhicule</h2>
                 <div class="form-group">
                   <label for="" class="label">Marque</label>
-                  <input type="text" class="form-control" name="constructor" placeholder="Marque" required />
+                  <input list="constructor" type="text" class="form-control" name="constructor" placeholder="Marque" required />
+                  <datalist id="constructor">
+			  		  	<option value="Renault">
+			 	 		<option value="Peugeot">
+			  			<option value="Citroen">
+			  			<option value="Volkswagen">
+			  			<option value="Dacia">
+			  			<option value="Toyota">
+			  			<option value="Ford">
+			  			<option value="BMW">
+			  			<option value="Mercedes">
+			  			<option value="Audi">
+			  			<option value="Fiat">
+			  			<option value="Opel">
+			  			<option value="Nissan">
+			  			<option value="Hyundai">
+					</datalist>
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Modèle</label>

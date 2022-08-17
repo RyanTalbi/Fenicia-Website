@@ -1,13 +1,22 @@
 <?php 
 	session_start(); require('connectToDatabase.php');
-	$sql = $connection->prepare('SELECT * FROM Voitures WHERE PlaqueVehicule = :plate');                     
-	$sql->bindParam(":plate",$_GET["plate"]);
+	$sql = $connection->prepare('SELECT * FROM Voitures WHERE PlaqueVehicule = :plate');                  
+	$plate = $_GET["plate"];   
+	$sql->bindParam(":plate",$plate);
 	$sql->execute();
 	$result = $sql->fetch();
+	
+	
+	if(isset($_GET["delete"]))
+	{
+		$connection->prepare('DELETE FROM Voitures WHERE PlaqueVehicule = :plate');
+		$connection->bindParam(':plate',$plate);
+		sql->execute();
+	}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -331,7 +340,7 @@
               </div>
          </div>
       </div>
-      <a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Elle est pour moi !</a><?php if(isset($_SESSION["email"]) && $_SESSION["isAdmin"] == 1){ ?><a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Supprimer ce véhicule.</a> <?php } ?>
+      <a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Elle est pour moi !</a><?php if(isset($_SESSION["email"]) && $_SESSION["isAdmin"] == 1){ ?><a href="#.php?delete=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Supprimer ce véhicule.</a> <?php } ?>
 
     </section>
 
@@ -349,7 +358,7 @@
     					<?php
 							try
 							{
-								$sql = $connection->prepare("SELECT * FROM Voitures WHERE PlaqueVehicule NOT IN (SELECT PlaqueVehicule FROM Locations)");
+								$sql = $connection->prepare("SELECT * FROM Voitures");
 								$sql->execute();
 								$vehicles = $sql->fetchAll(PDO::FETCH_ASSOC);
 								foreach($vehicles as $row)
