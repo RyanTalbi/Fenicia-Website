@@ -76,7 +76,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Fenicia - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -109,7 +109,7 @@
  
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+	      <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -191,7 +191,18 @@
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Couleur</label>
-                  <input type="text" class="form-control" name="color" placeholder="Couleur">
+                  <input list="color" type="text" class="form-control" name="color" placeholder="Couleur">
+                   <datalist id="color">
+			  		  	<option value="Blanche">
+			 	 		<option value="Noire">
+			  			<option value="Grise foncée">
+			  			<option value="Grise claire">
+			  			<option value="Bleu">
+			  			<option value="Rouge">
+			  			<option value="Beige">
+			  			<option value="Vert">
+			  			<option value="Jaune">
+					</datalist>
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Loyer</label>
@@ -199,7 +210,11 @@
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Boite de vitesse</label>
-                  <input type="text" class="form-control" name="gearbox" placeholder="Boite de vitesse">
+                  <input list="gearbox" type="text" class="form-control" name="gearbox" placeholder="Boite de vitesse">
+                  <datalist id="gearbox">
+                  	<option value="Automatique">
+                  	<option value="Manuelle">
+                 </datalist>
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Nombre de places</label>
@@ -211,7 +226,12 @@
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Carburant</label>
-                  <input type="text" class="form-control" name="fuel" placeholder="Carburant">
+                  <input list="fuel" type="text" class="form-control" name="fuel" placeholder="Carburant">
+                  <datalist id="fuel">
+                  	<option value="Essence">
+                  	<option value="Diesel">
+                  	<option value="Électrique">
+                 </datalist>
                 </div>
                 <div class="form-group">
                   <label for="" class="label">Description du véhicule</label>

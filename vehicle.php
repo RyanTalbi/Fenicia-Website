@@ -47,7 +47,7 @@
     
       <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-          <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+          <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
           </button>
@@ -167,7 +167,7 @@
                               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                                 <li class="nav-item">
-                                  <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Features</a>
+                                  <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Fonctionnalités</a>
                                 </li>
                                 <li class="nav-item">
                                   <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
@@ -340,7 +340,13 @@
               </div>
          </div>
       </div>
-      <a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Elle est pour moi !</a><?php if(isset($_SESSION["email"]) && $_SESSION["isAdmin"] == 1){ ?><a href="#.php?delete=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Supprimer ce véhicule.</a> <?php } ?>
+	
+      <?php if(isset($_SESSION["isApproved"]) && $_SESSION["isApproved"] == 1){ ?> <a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Elle est pour moi !</a><?php } else{ ?> <a href="payment.php?plate=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block disabled" role="button" aria-pressed="true">Votre compte n'est pas encore approuvé</a> <?php  } ?>
+      
+      
+      
+      
+      <?php if(isset($_SESSION["email"]) && $_SESSION["isAdmin"] == 1){ ?><a href="#.php?delete=<?php echo $_GET['plate']; ?>" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Supprimer ce véhicule.</a> <?php } ?>
 
     </section>
 
@@ -377,7 +383,7 @@
 			    								<span class="cat"><?php echo $row['Constructeur']; ?></span>
 			    								<p class="price ml-auto"><?php echo $row['LoyerVehicule']; ?> <span>€/mois</span></p>
 		    								</div>
-		    								<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Réserver</a> <a href="vehicle.php?plate=<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    								<p class="d-flex mb-0 d-block"><a href="payment.php?plate<?php echo $row['PlaqueVehicule']; ?>"  class="btn btn-primary py-2 mr-1">Réserver</a> <a href="vehicle.php?plate=<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
 		    							</div>
 		    						</div>	
 		    					</div>

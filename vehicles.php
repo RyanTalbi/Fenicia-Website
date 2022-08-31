@@ -49,10 +49,9 @@
     	{
     			startDate = start.format('YYYY-MM-DD') ;
     			endDate = end.format('YYYY-MM-DD') ;
-				console.log("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate);
     			let result = $.get("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate, function(data, status)
 				{
-					$("#carlist").html("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate+data);				
+					$("#carlist").html(data);				
 				});
   		});
 		});
@@ -62,7 +61,7 @@
 			$("#vehiclesSearchBar").keyup(function(){
 				let result = $.get("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate, function(data, status)
 				{
-					$("#carlist").html("ajaxphp/findVehicles.php?model="+$("#vehiclesSearchBar").val()+"&startDate="+startDate+"&endDate="+endDate+data);
+					$("#carlist").html(data);
 				}
 				);
   			});
@@ -74,7 +73,7 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+	      <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>

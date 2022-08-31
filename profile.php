@@ -10,6 +10,24 @@
 		$city = $result["Ville"];
 		$phoneNumber = $result["Telephone"];
 		$email = $result["Email"];
+		
+		
+		$sql = $connection->prepare('SELECT * FROM DepotsDossiers WHERE email = :email');
+		$sql->bindParam(":email",$email);
+		$sql->execute();
+		$result = $sql->fetch();
+		if($result)
+		{
+			$sirenAlreadyGiven = $result["SIRENRenseigne"];
+			$licenseAlreadyGiven = $result["PermisRenseigne"];
+			$idAlreadyGiven = $result["IdentiteRenseignee"];
+		}
+		else
+		{
+			$sirenAlreadyGiven = true;
+			$licenseAlreadyGiven = true;
+			$idAlreadyGiven = true;
+		}
 	}
 	
 	$badDriverLicenseMime = false;
@@ -93,7 +111,7 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+	      <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -166,17 +184,20 @@
 							<label class="label">Attestation SIREN
 								<input type="file" class="form-control" id="inputGroupFile02" name="SIREN">
 							</label>
+							<?php if($sirenAlreadyGiven){ ?> <p> Vous avez déjà renseigné ce document </p> <?php } ?>
 							<?php if($badSIRENMime){ ?><div class="alert alert-danger" role="alert">Merci d'insérer un pdf.</div><?php } ?>
 						<div class="input-group mb-3">
 							<label class="label">Permis de conduire
 								<input type="file" class="form-control" id="inputGroupFile03" name="driverLicense">
 							</label>
+							<?php if($licenseAlreadyGiven){ ?> <p> Vous avez déjà renseigné ce document </p> <?php } ?>
 							<?php if($badDriverLicenseMime){ ?><div class="alert alert-danger" role="alert">Merci d'insérer un pdf.</div><?php } ?>
 						</div>
 						<div class="input-group mb-3">
 							<label class="label">Justificatif d'identité
 								<input type="file" class="form-control" id="inputGroupFile04" name="idCard">
 							</label>
+							<?php if($idAlreadyGiven){ ?> <p> Vous avez déjà renseigné ce document </p> <?php } ?>
 							<?php if($badIdCardMime){ ?><div class="alert alert-danger" role="alert">Merci d'insérer un pdf.</div><?php } ?>
 						</div>
 						<input type="submit" value="Envoyer le formulaire"/>
@@ -184,6 +205,7 @@
 				</div>
 		 	</div>
 	    </div>
+	    <a id="deleteAccount" href="deleteAccount.php" class="link-danger">Supprimer mon compte ( Cette action est irréversible )</a>
     </div>
           <div class="col-md-8 block-9 mb-md-5">
             <form action="#" class="bg-light p-5 contact-form">

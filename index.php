@@ -31,7 +31,7 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+	      <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -61,10 +61,9 @@
         <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
           <div class="col-lg-8 ftco-animate">
           	<div class="text w-100 text-center mb-md-5 pb-md-5">
-	            <h1 class="mb-4">Le meilleur service de location de voiture de la Terre</h1>
+	            <h1 class="mb-4">Le meilleur service de location de voiture</h1>
 	            <p style="font-size: 18px;">Choisissez une voiture, récupérez la, profitez-en</p>
 	            <a href="https://vimeo.com/45830194" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
-	            	
 	            </a>
             </div>
           </div>
@@ -72,9 +71,7 @@
       </div>
     </div>
 
-
-
-	<?php if(!isset($_SESSION["email"])){ ?>
+     <?php if(!isset($_SESSION["email"])){ ?>
      <section class="ftco-section ftco-no-pt bg-light">
      	<div class="container">
 	    	<div class="row no-gutters">
@@ -150,7 +147,7 @@
 									}
 									if(!preg_match("/^[0-9a-zA-Z]{15}$/",$_POST["licenseNumber"]))
 									{
-									   $formCorrectlyFilledIn = false;
+									   $formOk = false;
 									   ?>  
 									   <div class="alert alert-danger" role="alert">Numéro de permis invalide.</div>
 									   <?php
@@ -274,7 +271,7 @@
     					<?php
 							try
 							{
-								$sql = $connection->prepare("SELECT * FROM Voitures WHERE PlaqueVehicule");
+								$sql = $connection->prepare("SELECT * FROM Voitures");
 								$sql->execute();
 								$vehicles = $sql->fetchAll(PDO::FETCH_ASSOC);
 								foreach($vehicles as $row)
@@ -293,7 +290,7 @@
 			    								<span class="cat"><?php echo $row['Constructeur']; ?></span>
 			    								<p class="price ml-auto"><?php echo $row['LoyerVehicule']; ?> <span>€/mois</span></p>
 		    								</div>
-		    								<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Location</a> <a href="vehicle.php?plate=<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    								<p class="d-flex mb-0 d-block"><a href="payment.php?plate<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-primary py-2 mr-1">Location</a> <a href="vehicle.php?plate=<?php echo $row['PlaqueVehicule']; ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
 		    							</div>
 		    						</div>	
 		    					</div>
@@ -463,103 +460,7 @@
       </div>
     </section>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Blog</span>
-            <h2>Recent Blog</h2>
-          </div>
-        </div>
-        <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
-              </a>
-              <div class="text pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p><a href="#" class="btn btn-primary">Read more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-              </a>
-              <div class="text pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p><a href="#" class="btn btn-primary">Read more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-              </a>
-              <div class="text pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p><a href="#" class="btn btn-primary">Read more</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>	
-
-    <section class="ftco-counter ftco-section img bg-light" id="section-counter">
-			<div class="overlay"></div>
-    	<div class="container">
-    		<div class="row">
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text text-border d-flex align-items-center">
-                <strong class="number" data-number="60">0</strong>
-                <span>Year <br>Experienced</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text text-border d-flex align-items-center">
-                <strong class="number" data-number="1090">0</strong>
-                <span>Total <br>Cars</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text text-border d-flex align-items-center">
-                <strong class="number" data-number="2590">0</strong>
-                <span>Happy <br>Customers</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text d-flex align-items-center">
-                <strong class="number" data-number="67">0</strong>
-                <span>Total <br>Branches</span>
-              </div>
-            </div>
-          </div>
-        </div>
-    	</div>
-    </section>	
+    	
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">

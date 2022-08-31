@@ -30,7 +30,7 @@
   <body>
       <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-          <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+          <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
           </button>
@@ -83,7 +83,7 @@
 	   <?php
               if(isset($_POST["email"]) && isset($_POST["password"]))
               {
-                  $sql = $connection->prepare('SELECT MOTDEPASSE, Administrateur FROM Clients WHERE email = :email'); 
+                  $sql = $connection->prepare('SELECT MOTDEPASSE, Administrateur, Approuve FROM Clients WHERE email = :email'); 
                   $sql->bindParam(":email",$_POST["email"]);
                   $sql->execute();
                   $result = $sql->fetch();
@@ -93,6 +93,7 @@
                   {
                     $_SESSION["email"] = $_POST["email"];
                     $_SESSION["isAdmin"] = $result["Administrateur"];
+                    $_SESSION["isApproved"] = $result["Approuve"];
                     ?><script>window.location.href = "vehicles.php";</script>
           	<?php
                   }

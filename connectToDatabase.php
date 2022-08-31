@@ -1,9 +1,8 @@
 <?php    
 	$servername = "localhost";
-	$username = "root";
+	$username = "phpmyadmin";
 	$password = "opm#erTéo@oa@?";
 	$dbname = "location";
-	
 	
 	try
 	{

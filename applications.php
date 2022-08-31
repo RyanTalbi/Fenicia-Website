@@ -5,6 +5,7 @@
 		$sql = $connection->prepare('SELECT * FROM DepotsDossiers'); 
 		$sql->execute();
 		$activesApplications = $sql->fetchAll(PDO::FETCH_ASSOC);
+		
 		if(isset($_GET["validatedEmail"]))
 		{
 			$email = $_GET["validatedEmail"];
@@ -15,12 +16,16 @@
 			$sql->bindParam(":email",$email);
 			$sql->execute();	
 		}
+		
+		$sql = $connection->prepare('SELECT * FROM DepotsDossiers'); 
+		$sql->execute();
+		$activesApplications = $sql->fetchAll(PDO::FETCH_ASSOC);
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
-    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Fenicia</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -49,7 +54,7 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.php">Car<span>Book</span></a>
+	      <a class="navbar-brand" href="index.php">Fe<span>nicia</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -89,34 +94,31 @@
       <div class="container">
           <div class="col-md-8 block-9 mb-md-5">
            	<?php
-           		foreach($activesApplications as $row)
+           	foreach($activesApplications as $row)
+           	{
+           		if($row["PermisRenseigne"] == 1 && $row["SIRENRenseigne"] && $row["IdentiteRenseignee"])
            		{
-           			if($row["PermisRenseigne"] == 1 && $row["SIRENRenseigne"] && $row["IdentiteRenseignee"])
-           			{
-		
            	?>
-           		
-
-           		<div class="form-group">
-           			<h2>Dossier pour le compte : <?php echo $row['Email']; ?></h2>
-           		</div>
-           		<div class="form-group">
-           			<a href="applications/<?php echo $row['Email']; ?>/permisConduire.pdf">Consulter le permis</a>
-           		</div>
-           		<div class="form-group">
-           			<a href="applications/<?php echo $row['Email']; ?>/SIREN.pdf">Consulter le SIREN</a>
-           		</div>
+			<div class="container">
 				<div class="form-group">
-           			<a href="applications/<?php echo $row['Email']; ?>/identite.pdf">Consulter le justificatif d'identité</a>	
+					<h2>Dossier pour le compte : <?php echo $row['Email']; ?></h2>
+				</div>
+				<div class="form-group">
+				   <a href="applications/<?php echo $row['Email']; ?>/permisConduire.pdf">Consulter le permis</a>
+				</div>
+				<div class="form-group">
+				   <a href="applications/<?php echo $row['Email']; ?>/SIREN.pdf">Consulter le SIREN</a>
+				</div>
+				<div class="form-group">
+				   <a href="applications/<?php echo $row['Email']; ?>/identite.pdf">Consulter le justificatif d'identité</a>	
 					<a href="applications.php?validatedEmail=<?php echo $row['Email']; ?>" class="btn btn-primary btn-lg btn-block">Je valide ce dossier</a>
-			   	</div>
-
-           		<?php 
-           			}
-           		}	
-           		?>	
-          </div>
-        </div>
+				</div>
+			</div>	
+			<?php 
+			   }
+			 }	
+			?>	
+		 </div>	
       </div>
     </section>
 	
